@@ -1,0 +1,1 @@
+利用tinypng压缩图片，支持格式jpg,png,webp
