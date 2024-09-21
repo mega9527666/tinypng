@@ -2,6 +2,9 @@ const tinify = require("tinify");
 const fs = require("fs");
 const path = require("path");
 
+
+// mega9527666@gmail.com
+
 tinify.key = "dGv62vCgBMNzlR4jZmSXrTYgZQ56CSM0";
 // tinify.key = "XYxRtw4lml028C0w9NXJDrj5k8TGqsgs";
 
@@ -29,16 +32,22 @@ function compressDir(dir) {
                 || localLowerPath.includes(".jpeg") || localLowerPath.includes("webp")) {
                 fs.readFile(subpath, (err, sourceData) => {
                     if (err) throw err;
-                    tinify.fromBuffer(sourceData).toBuffer((err, resultData) => {
-                        if (err) throw err;
-                        fs.writeFile(subpath, resultData, (err) => {
-                            if (err) {
-                                console.error("压缩文件失败", err);
-                            } else {
-                                console.log("压缩成功", subpath)
-                            }
-                        });
-                    });
+                    tinify.validate((err, data)=>{
+                        if(err){
+                            console.error("tinypng账号失败==", err)
+                        }else{
+                            tinify.fromBuffer(sourceData).toBuffer((err, resultData) => {
+                                if (err) throw err;
+                                fs.writeFile(subpath, resultData, (err) => {
+                                    if (err) {
+                                        console.error("压缩文件失败", err);
+                                    } else {
+                                        console.log("压缩成功", subpath)
+                                    }
+                                });
+                            });
+                        }
+                    })
                 });
             }
         }
